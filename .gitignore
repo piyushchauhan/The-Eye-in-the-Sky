@@ -1,1 +1,4 @@
 .vscode
+deep-unet-for-satellite-image-segmentation
+.ipynb_checkpoints
+__pycache__
