@@ -9,23 +9,24 @@ Inter IIT Project
 - Article: [Deconvolution](https://distill.pub/2016/deconv-checkerboard/)
 - Report: [Various indices from Satellite images](http://www.slopeproject.eu/public/deliverables/D201.pdf) 
 
- Water = [0,0,150]
- Trees = [0,125,0]
- Grass = [0,255,0]
- Trains = [255,255,0]
- Soil = [150,80,0]
- Roads = [0,0,0]
- Unlabelled = [255,255,255]
- Buildings = [100,100,100]
- Pools = [150,150,255]
+### Color Codes for classes
+- Water = [0,0,150]
+- Trees = [0,125,0]
+- Grass = [0,255,0]
+- Trains = [255,255,0]
+- Soil = [150,80,0]
+- Roads = [0,0,0]
+- Unlabelled = [255,255,255]
+- Buildings = [100,100,100]
+- Pools = [150,150,255]
 
-Pixelwise Percentage:
-road:15.2
-building:21.88
-tree:8.5
-grass:6.88
-soil:0.93
-water:5.72
-rail:1.0
-pool:0.15
-unlabelled:39.72
+### Pixelwise Percentage:
+ - road:15.2
+ - building:21.88
+ - tree:8.5
+ - grass:6.88
+ - soil:0.93
+ - water:5.72
+ - rail:1.0
+ - pool:0.15
+ - unlabelled:39.72
