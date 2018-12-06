@@ -18,3 +18,14 @@ Inter IIT Project
  Unlabelled = [255,255,255]
  Buildings = [100,100,100]
  Pools = [150,150,255]
+
+Pixelwise Percentage:
+road:15.2
+building:21.88
+tree:8.5
+grass:6.88
+soil:0.93
+water:5.72
+rail:1.0
+pool:0.15
+unlabelled:39.72
