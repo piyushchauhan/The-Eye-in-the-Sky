@@ -6,6 +6,7 @@ Inter IIT Project
 - Repo: [Previously implemented repo](https://github.com/reachsumit/deep-unet-for-satellite-image-segmentation)
 - Paper: [CNNs for large scale-remote sensing image Classification](https://arxiv.org/pdf/1703.00121.pdf)
 - Paper: [RNNs to correct Satellite Image Classification Maps](https://arxiv.org/pdf/1608.03440.pdf)
+- Article: [Deconvolution](https://distill.pub/2016/deconv-checkerboard/) 
 
  Water = [0,0,150]
  Trees = [0,125,0]
