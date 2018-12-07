@@ -1,3 +1,5 @@
+#Don't change the original output of the U-net with this function
+
 def thresholdings(image):
     import numpy as np
 
