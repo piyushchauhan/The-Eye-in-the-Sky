@@ -20,13 +20,13 @@ Inter IIT Project
 - Buildings = [100,100,100]
 - Pools = [150,150,255]
 
-### Pixelwise Percentage:
- - road:15.2
- - building:21.88
- - tree:8.5
- - grass:6.88
- - soil:0.93
- - water:5.72
- - rail:1.0
- - pool:0.15
- - unlabelled:39.72
+### Pixelwise Percentage and Threshold values:
+ - road:15.2          0.5
+ - building:21.88     0.5
+ - tree:8.5           0.4  
+ - grass:6.88         0.4
+ - soil:0.93          0.35
+ - water:5.72         0.4
+ - rail:1.0           0.35
+ - pool:0.15          0.3
+ - unlabelled:39.72   0.6
