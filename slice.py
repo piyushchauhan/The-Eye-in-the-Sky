@@ -18,7 +18,7 @@ def rowslice(image, gtimage, ptsz):
 
 
 def slice(image, gtimage, ptsz):
-    assert image.shape == gtimage.shape, "Image shapes of the given images do not match"
+    assert image.shape[:2] == gtimage.shape[:2], "Image shapes of the given images do not match"
     m = math.floor(image.shape[0]/(ptsz//2))
     h = image.shape[0]
     rarr = range(m+1)

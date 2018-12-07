@@ -22,7 +22,9 @@ def stitch(patchs, shape):
     Outut:  img     - final image containing the stiched patchs with dim (shape[0], shape[1], n_channels)
     """
     n_channels = patchs.shape[3]
-    fImgShape = tuple(list(shape).append(n_channels))
+    logging.debug(shape)
+    fImgShape = list(shape)+[n_channels]
+    logging.debug("Final Image shape" + str(fImgShape))
     finalImgH, finalImgW = shape
     ptsz = patchs.shape[1]
 
@@ -30,28 +32,42 @@ def stitch(patchs, shape):
     weights = np.zeros(fImgShape, dtype=np.float32)
     # Final stiched images will go in finalImage
     finalImage = np.zeros(fImgShape, dtype=np.float32)
-
+    """
     for k in range(patchs.shape[0]):
         # For each patch
-        i = k // (finalImgW//ptsz)
-        j = k % (finalImgH//ptsz)
+        i = k // ((finalImgW//ptsz)*2)
+        j = k % ((finalImgH//ptsz)*2)
         x0, x1 = i * ptsz, (i + 1) * ptsz
         y0, y1 = j * ptsz, (j + 1) * ptsz
-        logging.debug("Patch:%s (%s,%s) (%s,%s)"%(k, x0, y0, x1, y1))
-        # Calculate the weight of each pixel in the patch 
-        wtPatch = np.zeros((ptsz,ptsz,n_channels), dtype=np.float32)
+        x0, y0 = i * ptsz // 2, j * ptsz // 2
+    """
+    k = 0
 
-        for x in range(ptsz):                     
-            for y in range(ptsz):
-                # casting weights into all channels
-                wtPatch[x,y,:] = weight((x,y),ptsz)
+    for x0 in range(0,finalImgW - ptsz + 1, ptsz//2):
+        for y0 in range(0, finalImgH - ptsz + 1, ptsz//2):
+            x1, y1 = x0 + ptsz, y0 + ptsz
+            logging.debug("Patch:%s (%s,%s) (%s,%s)"%(k, x0, y0, x1, y1))
 
-        for ch in range(1,n_channels):
-            wtPatch[:,:,ch] = wtPatch[:,:,0]
-        # Putting the patch into the final Image
-        finalImage[x0:x1,y0:y1,:] += np.multiply(patchs[k], wtPatch)
-        # Adding the weight of the patch to the final Image
-        weights[x0:x1,y0:y1,:] += wtPatch
+            # Calculate the weight of each pixel in the patch 
+            wtPatch = np.zeros((ptsz,ptsz,n_channels), dtype=np.float32)
+
+            for x in range(ptsz):                     
+                for y in range(ptsz):
+                    # casting weights into all channels
+                    wtPatch[x,y,:] = weight((x,y),ptsz)
+
+            for ch in range(1,n_channels):
+                wtPatch[:,:,ch] = wtPatch[:,:,0]
+            # Putting the patch into the final Image
+            """
+            logging.debug(patchs[k].shape,wtPatch.shape)
+            logging.debug(finalImage[x0:x1,y0:y1,:].shape)
+            """
+            finalImage[x0:x1,y0:y1,:] += np.multiply(patchs[k], wtPatch)
+            # Adding the weight of the patch to the final Image
+            weights[x0:x1,y0:y1,:] += wtPatch
+            k+=1
+
 
     logging.debug("All patchs done")
 
