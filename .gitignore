@@ -3,3 +3,5 @@ deep-unet-for-satellite-image-segmentation
 .ipynb_checkpoints
 __pycache__
 testFolder
+oldCode
+tensorboard_unet
