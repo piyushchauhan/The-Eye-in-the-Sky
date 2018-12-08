@@ -11,7 +11,7 @@ Buildings = [100, 100, 100]
 Pools = [150, 150, 255]
 
 
-def testto9(image):
+def rgb2Classes(image):
     wctmp = (image == Water)
     wc = np.logical_and(wctmp[:, :, 0], wctmp[:, :, 1])
     wc = np.logical_and(wctmp[:, :, 2], wc)
@@ -58,3 +58,4 @@ def testto9(image):
     output[:, :, 6] = b  # Buildings
     output[:, :, 7] = p  # Pools
     output[:, :, 8] = u  # Unlabelled
+    return output

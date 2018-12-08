@@ -1,6 +1,7 @@
 import sklearn.metrics as sklm
 from scipy.misc import toimage
 from scipy.misc import imread
+from skimage import io
 import matplotlib.pyplot as ppl
 import pandas as pd
 import seaborn as sn
@@ -15,7 +16,7 @@ def read_im(file, path):
 	for path,dirs,files in os.walk(PATH):
 		for filename in file:
 			fullpath = os.path.join(path, filename)
-			img = imread(fullpath)
+			img = io.imread(fullpath)
 			x.append(img)
 	return(x)
 
