@@ -5,10 +5,15 @@ from keras.layers import Input, Conv2D, MaxPooling2D, UpSampling2D, concatenate,
 from keras.optimizers import Adam
 from keras.utils import plot_model
 from keras import backend as K
+from percentages import perc
+from rgb2Classes import rgb2Classes
+import logging
+logging.basicConfig(level=logging.DEBUG,
+                    format=' %(asctime)s - %(levelname)s- %(message)s')
 
 
-def unet_model(n_classes=5, im_sz=160, n_channels=8, n_filters_start=32, growth_factor=2, upconv=True,
-               class_weights=[0.2, 0.3, 0.1, 0.1, 0.3]):
+def unet_model(n_classes=9, im_sz=256, n_channels=4, n_filters_start=32, growth_factor=2, upconv=True,
+               class_weights=perc()):
     droprate=0.25
     n_filters = n_filters_start
     inputs = Input((im_sz, im_sz, n_channels))
@@ -103,6 +108,7 @@ def unet_model(n_classes=5, im_sz=160, n_channels=8, n_filters_start=32, growth_
     model = Model(inputs=inputs, outputs=conv10)
 
     def weighted_binary_crossentropy(y_true, y_pred):
+        y_true = rgb2Classes(y_true)
         class_loglosses = K.mean(K.binary_crossentropy(y_true, y_pred), axis=[0, 1, 2])
         return K.sum(class_loglosses * K.constant(class_weights))
 

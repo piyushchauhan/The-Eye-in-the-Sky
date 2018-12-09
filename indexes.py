@@ -17,11 +17,11 @@ def evi(image):
 
 
 def savi(image):
-    return (1.5)*((image[:, :, 3] - image[:, :, 0])/(image[:, :, 3] + image[:, :, 0] + 0.5 * np.ones(image.shape[:2], dtype=image.dtype)))
+    return (1.5)*((image[:, :, 3] - image[:, :, 0])/(image[:, :, 3] + image[:, :, 0] + 0.5))
 
 
 def evi2(image):
-    return 2.5*(image[:, :, 3] - image[:, :, 0])/(image[:, :, 3] + 2.4*image[:, :, 0] + np.ones(image.shape[:2], dtype=image.dtype))
+    return 2.5*(image[:, :, 3] - image[:, :, 0])/(image[:, :, 3] + 2.4*image[:, :, 0] + 1)
 
 
 def msavi2(image):

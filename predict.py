@@ -1,3 +1,6 @@
+from skimage import io
+import numpy as np
+
 # TODO Load weights
 # TODO Load Image(s) to be predicted
 # TODO Adding Indices as channels

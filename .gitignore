@@ -5,3 +5,5 @@ __pycache__
 testFolder
 oldCode
 tensorboard_unet
+U-net_san.py
+model.ckpt
