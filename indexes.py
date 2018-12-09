@@ -2,6 +2,18 @@
 
 import numpy as np
 
+def addNewChSat(image, channel):
+    return np.concatenate((image, channel.reshape(tuple(list(image.shape[:2]) + [1]))), axis=2)
+
+def addIndices(satImg):
+    satImg2 = addNewChSat(satImg, evi2(satImg))
+    satImg2 = addNewChSat(satImg2, msavi2(satImg))
+    satImg2 = addNewChSat(satImg2, ndvi(satImg))
+    satImg2 = addNewChSat(satImg2, ndwi(satImg))
+    satImg2 = addNewChSat(satImg2, osavi2(satImg))
+    satImg2 = addNewChSat(satImg2, savi(satImg))
+    # logging.debug(str(i) + str(satImg.shape))
+    return satImg2
 
 def ndvi(image):
     return np.nan_to_num((image[:, :, 3] - image[:, :, 0])/(image[:, :, 3] + image[:, :, 0]))
