@@ -9,13 +9,14 @@ thresholds = {
     "Roads": 0.5,
     "Buildings": 0.5,
     "Soil": 0.35,
-    "Rails": 0.35,
+    "Trains": 0.35,
     "Pools": 0.3,
     "Unlabelled": 0.6
 }
 
 ch_order = ["Water", "Trees", "Grass", "Trains",
             "Soil", "Roads", "Buildings", "Pools", "Unlabelled"]
+ch_vals = [0.4, 0.4, 0.4, 0.5, 0.5, 0.35, 0.35, 0.3, 0.6]
 
 Colors = {
     "Water": [0, 0, 150],
@@ -49,10 +50,14 @@ def selection(image):
             (image.shape[0], image.shape[1]), thresholds[ch_order[i]])
         th_ch[:, :, i] = th_tmp
 
+    # The differences between corresponding color threshold values and probabilities
     im_th = image - th_ch
+
+    # This makes the negative differences 0
     im_th = np.logical_and(classCh, im_th)
-    im_th = np.logical_not(classCh) + im_th
-    color_vals = np.argmin(im_th, axis=2)
+
+    # This selects the corresponding channel number which has the max difference
+    color_vals = np.argmax(im_th, axis=2)
 
     output = ch_vals[color_vals]
 
@@ -60,7 +65,7 @@ def selection(image):
 
 
 def thresholdings(image):
-    for i in range(9):
-        image[:, :, i] = image[:, :, i] > thresholds[ch_order[i]]
+    for i,ch in enumerate(ch_vals):
+        image[:, :, i] = image[:, :, i] > ch
 
     return image
