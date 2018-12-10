@@ -7,13 +7,14 @@ from keras.utils import plot_model
 from keras import backend as K
 from percentages import perc
 from rgb2Classes import rgb2Classes
+from keras.utils import multi_gpu_model
 import logging
 logging.basicConfig(level=logging.DEBUG,
                     format=' %(asctime)s - %(levelname)s- %(message)s')
 
 
 def unet_model(n_classes=9, im_sz=256, n_channels=4, n_filters_start=32, growth_factor=2, upconv=True,
-               class_weights=perc()):
+               class_weights=perc(), gpus = 2):
     droprate=0.25
     n_filters = n_filters_start
     inputs = Input((im_sz, im_sz, n_channels))
@@ -111,5 +112,6 @@ def unet_model(n_classes=9, im_sz=256, n_channels=4, n_filters_start=32, growth_
         class_loglosses = K.mean(K.binary_crossentropy(y_true, y_pred), axis=[0, 1, 2])
         return K.sum(class_loglosses * K.constant(class_weights))
 
-    model.compile(optimizer=Adam(), loss=weighted_binary_crossentropy)
-    return model
+    model_ = multi_gpu_model(model, gpus=gpus)
+    model_.compile(optimizer=Adam(), loss=weighted_binary_crossentropy)
+    return model_
